@@ -1,6 +1,10 @@
 <template>
     <div class='set-content'>
-        <mt-header fixed title="京东"></mt-header>
+        <mt-header fixed title="京东">
+             <span slot="left" @click="reback" v-show="flag">
+             <mt-button icon="back">返回</mt-button>
+             </span>
+        </mt-header>
         <transition name="my">
             <router-view></router-view>
         </transition>
@@ -15,7 +19,7 @@
 			</router-link>
 			<router-link class="mui-tab-itemm" to="/shopcar">
 				<span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-                    <span class="mui-badge" id="badge">9</span>
+                    <span class="mui-badge" id="badge">{{$store.getters.getAllCount}}</span>
                 </span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
@@ -28,7 +32,25 @@
 </template>
 <script>
 export default {
- 
+    data(){
+        return {
+            flag:true
+        }
+    },
+    // while init
+    created(){
+        this.flag = this.$route.path === '/home'? false : true;
+    },
+    methods:{
+        reback(){
+            this.$router.go(-1)
+        }
+    },
+    watch:{
+        "$route.path":function(){
+            this.flag = this.$route.path === '/home'? false : true           
+        }
+    }
 }
 </script>
 <style scoped>

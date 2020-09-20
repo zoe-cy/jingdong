@@ -1,7 +1,7 @@
 <template>
     <div class="mui-numbox" data-numbox-min='1' >
 					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-					<input id="test" class="mui-input-numbox" type="number" value="1" ref="num" @change="changes" readonly/>
+					<input id="test" class="mui-input-numbox" type="number" :value="initcount" ref="num" @change="changes" readonly/>
 					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
 	</div>
 </template>
@@ -11,23 +11,16 @@ export default {
     mounted(){
         // init
         mui(".mui-numbox").numbox()
-        console.log("max",this.max)
+     
     },
+    props:['initcount','id'],
     methods:{
         // 数据传递后，box生效
         changes(){
-            this.$emit("getCount",parseInt(this.$refs.num.value))
+            this.$store.commit('getCount',{id:this.id,count:this.$refs.num.value})
         }, 
     },
-    props:["max"],
-    watch:{
-            // 监听属性
-            max:function(newVal,oldVal){
-                mui(".mui-numbox")
-                 .numbox()
-                 .setOption("max",newVal)
-            }
-    },
+
    
 }
 </script>

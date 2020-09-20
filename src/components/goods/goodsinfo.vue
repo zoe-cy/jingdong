@@ -15,7 +15,7 @@
 					<div class="mui-card-content-inner">
 						<p>
                             <span>{{infos.sell_price}}</span>
-					     	<span>{{infos.market_price}}</span>
+					     	<span class="mprice">{{infos.market_price}}</span>
                         </p>
                         <p>
                             <!-- 获取子组件数据 -->
@@ -23,7 +23,7 @@
                         </p>
                         <p>
                              <mt-button type="danger" size="small" @click="addGoods">加入购物车</mt-button> 
-                            <mt-button type="primary" size="small" >立即购买</mt-button>
+                            <mt-button type="primary" size="small" @click="toSells">立即购买</mt-button>
                                    
                         </p>
                     </div>
@@ -62,6 +62,7 @@
 <script>
 import numbox from '../subcomponents/goods_numbox.vue'
 import swiper from '../subcomponents/swiper.vue'
+
 export default {
     data(){
         return {
@@ -79,6 +80,7 @@ export default {
     created(){
         this.getLunbotu(),
         this.getinfo()
+      
     },
     methods:{
         getLunbotu(){
@@ -106,9 +108,21 @@ export default {
         toComment(id){
             this.$router.push({name:'goodsComment',params:{id}})
         },
-        // ball
+        toSells(){
+            this.addGoods()
+            this.$router.push('/shopcar')
+        },
+        // add to car
         addGoods(){
             this.isShow = !this.isShow
+            // 生成info add to car
+            var goodsInfo = {
+                id:this.id,
+                count:this.count,
+                price:this.infos.sell_price,
+                selected:true
+            }
+            this.$store.commit("addToCar",goodsInfo)
         },
         beforeEnter(el){
             el.style.transform = "translate(0,0)"
@@ -155,5 +169,9 @@ export default {
      left: 150px;
      top:400px;
      z-index: 1000;
+  }
+  .mprice{
+      text-decoration: line-through;
+      color:gray;
   }
 </style>

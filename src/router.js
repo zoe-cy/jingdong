@@ -2,8 +2,8 @@ import VueRouter from 'vue-router'
 
 import home from './components/tabbar/HomeContainer.vue'
 import menber from './components/tabbar/MenberContainer.vue'
-import shopcar from './components/tabbar/SearchContainer.vue'
-import search from './components/tabbar/ShopcarContainer.vue'
+import shopcar from './components/tabbar/ShopcarContainer.vue'
+import search from './components/tabbar/SearchContainer.vue'
 import newslist from './components/news/newslist.vue'
 import newsinfo from './components/news/newsinfo.vue'
 import photolist from './components/photos/photolist.vue'
@@ -19,6 +19,7 @@ var router = new VueRouter({
         {path:'/home',component:home},
         {path:'/menber',component:menber},
         {path:'/shopcar',component:shopcar},
+     
         {path:'/home',component:home},
         {path:'/home/newslist',component:newslist},
         // 对应 link to id
